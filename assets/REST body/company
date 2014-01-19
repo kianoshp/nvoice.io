@@ -1,0 +1,26 @@
+{
+	"company":
+	{
+		"companyName" : "Cielo Concepts Inc.",
+	    "phone" : 7810000000,
+	    "email" : "kianoshp@cieloconcpets.com",
+	    "address" : {
+	        "address1" : "70 Paul Gore Street",
+	        "address2" : "Unit 2",
+	        "city" : "Jamaica Plain",
+	        "state" : "MA",
+	        "country" : "United States",
+	        "zip" : "02130"
+	    }		
+	},
+	"user": {
+		"firstName" : "Kianosh",
+	    "middleInitial" : "",
+	    "lastName" : "Pourian",
+	    "password" : "pa$$w0rd",
+	    "email" : "kianoshp@gmail.com",
+	    "phone" : "7819623739",
+	    "role" : "administrator",
+	    "mainContact" : true		
+	}	
+}

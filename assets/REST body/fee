@@ -1,0 +1,7 @@
+{
+	"fee": {
+		"description": "Large item handling fee"
+		, "amount": 100.25
+		, "invoiceId": "52672e747829a3dab3000002" 
+	}
+}

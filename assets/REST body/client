@@ -1,0 +1,87 @@
+{
+	"parentCompany": "5265e4181300039533000002",
+	"isClient": true,
+	"company":
+	{
+		"companyName" : "Client 1 company",
+	    "phone" : "1230000000",
+	    "email" : "client1@email.com",
+	    "address" : {
+	        "address1" : "123 Elm Street",
+	        "address2" : "Unit 123",
+	        "city" : "Neverland",
+	        "state" : "AnyState",
+	        "country" : "United States",
+	        "zip" : "12345"
+	    }		
+	},
+	"user": {
+		"firstName" : "Steve",
+	    "middleInitial" : "",
+	    "lastName" : "Jobs",
+	    "password" : "tempPa$$",
+	    "email" : "sjobs@email.com",
+	    "phone" : "9870000000",
+	    "role" : "administrator",
+	    "mainContact" : true		
+	}	
+}
+
+{
+	"parentCompany": "5265e7d2130003953300000c",
+	"isClient": true,
+	"company":
+	{
+		"companyName" : "Client 2 company",
+	    "phone" : "4560000000",
+	    "email" : "client2@email.com",
+	    "address" : {
+	        "address1" : "456 Elm Street",
+	        "address2" : "Unit 456",
+	        "city" : "Narnia",
+	        "state" : "AnyState",
+	        "country" : "United States",
+	        "zip" : "09876"
+	    }		
+	},
+	"user": {
+		"firstName" : "Albert",
+	    "middleInitial" : "A",
+	    "lastName" : "Einstein",
+	    "password" : "tempPa$$",
+	    "email" : "einstein@email.com",
+	    "phone" : "4560000000",
+	    "role" : "administrator",
+	    "mainContact" : true		
+	}	
+}
+
+{
+	"parentCompany": "5265e7d2130003953300000c",
+	"isClient": true,
+	"company":
+	{
+		"companyName" : "ACME company",
+	    "phone" : "7890000000",
+	    "email" : "acmeClient@email.com",
+	    "address" : {
+	        "address1" : "789 Elm Street",
+	        "address2" : "Unit 789",
+	        "city" : "Wnderland",
+	        "state" : "AnyState",
+	        "country" : "United States",
+	        "zip" : "87609"
+	    }		
+	},
+	"user": {
+		"firstName" : "Alice",
+	    "middleInitial" : "In",
+	    "lastName" : "Wonderland",
+	    "password" : "tempPa$$",
+	    "email" : "alice@email.com",
+	    "phone" : "7890000000",
+	    "role" : "client",
+	    "mainContact" : true		
+	}	
+}
+

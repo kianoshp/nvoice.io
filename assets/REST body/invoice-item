@@ -1,0 +1,8 @@
+{
+	"invoiceItem": {
+		"invoiceId": "52672e747829a3dab3000002"
+		, "description": "Week ending 10/24/2013"
+		, "qty": 40
+		, "rate": 100
+	}
+}

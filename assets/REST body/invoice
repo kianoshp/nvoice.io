@@ -1,0 +1,10 @@
+{
+    "invoice": {
+        "title": "MIT",
+        "description": "KnockoutJS work",
+        "clientId": "5265e804130003953300000e",
+        "companyId": "5265e7d2130003953300000c",
+        "poNumber": 1234,
+        "status": "entered"
+    }
+}

@@ -1,0 +1,30 @@
+Add a user
+
+{
+    firstName: "Magdalene"
+    , middleInitial: "L"
+    , lastName: "Pourian"
+    , password: "mlp042007"
+    , companyId: company._id
+    , email: "magdalene@gmail.com"
+    , phone: 5088264781
+    , role: "invoiceCreator"
+}
+
+
+Edit a user
+
+{
+    "user": {
+        "id": "525df3903f587d8e18000002",
+        "firstName" : "Kianosh",
+        "middleInitial" : "S",
+        "lastName" : "Pourian",
+        "username" : "kpourian",
+        "email" : "kianoshp@gmail.com",
+        "phone" : 7819623739,
+        "role" : "administrator",
+        "mainContact" : true
+    }
+}
+
