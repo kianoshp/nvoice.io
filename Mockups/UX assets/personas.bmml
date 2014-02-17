@@ -9,7 +9,7 @@
     <control controlID="1" controlTypeID="com.balsamiq.mockups::Image" x="136" y="117" w="87" h="125" measuredW="271" measuredH="388" zOrder="1" locked="false" isInGroup="-1">
       <controlProperties>
         <borderStyle>square</borderStyle>
-        <src>./women-business-owner.jpg</src>
+        <src>../assets/images/women-business-owner.jpg</src>
       </controlProperties>
     </control>
     <control controlID="2" controlTypeID="com.balsamiq.mockups::Label" x="230" y="117" w="-1" h="-1" measuredW="38" measuredH="24" zOrder="2" locked="false" isInGroup="-1">
@@ -73,7 +73,7 @@
     <control controlID="11" controlTypeID="com.balsamiq.mockups::Image" x="445" y="117" w="77" h="123" measuredW="199" measuredH="319" zOrder="11" locked="false" isInGroup="-1">
       <controlProperties>
         <borderStyle>square</borderStyle>
-        <src>./iStock_000015303482XSmall.jpg</src>
+        <src>../assets/images/iStock_000015303482XSmall.jpg</src>
       </controlProperties>
     </control>
     <control controlID="12" controlTypeID="com.balsamiq.mockups::Label" x="537" y="117" w="-1" h="-1" measuredW="38" measuredH="24" zOrder="12" locked="false" isInGroup="-1">
@@ -137,7 +137,7 @@
     <control controlID="21" controlTypeID="com.balsamiq.mockups::Image" x="754" y="117" w="119" h="68" measuredW="250" measuredH="142" zOrder="21" locked="false" isInGroup="-1">
       <controlProperties>
         <borderStyle>square</borderStyle>
-        <src>./kiva-350x233.jpg</src>
+        <src>../assets/images/kiva-350x233.jpg</src>
       </controlProperties>
     </control>
     <control controlID="22" controlTypeID="com.balsamiq.mockups::Label" x="754" y="191" w="-1" h="-1" measuredW="38" measuredH="24" zOrder="22" locked="false" isInGroup="-1">

@@ -77,26 +77,6 @@ module.exports = function(grunt) {
     watch: {
       files: ['<%= jshint.files %>'],
       tasks: ['jshint']
-    },
-    jasmine: {
-      src : ['static/test/spec/**/*.js'],
-      options: {
-        //specs : 'static/test/spec/**/*Spec.js',
-        template: require('grunt-template-jasmine-requirejs'),
-        templateOptions: {
-          requireConfig: {
-            //mainConfigFile: 'static/test/SpecRunner.js',
-            paths: {
-              'jquery': './static/js/libs/jquery'
-            }
-          }
-        }
-      }
-    },
-    connect: {
-      test: {
-        port: 8082
-      }
     }
   });
 
@@ -109,8 +89,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-connect');
 
   // Default task
-  grunt.registerTask('default', ['jshint', 'concat', 'jasmine-test']);
+  grunt.registerTask('default', ['jshint', 'concat']);
   grunt.registerTask('build', ['jshint', 'concat', 'uglify']);
-  grunt.registerTask('jasmine-test', ['jasmine']);
 
 };

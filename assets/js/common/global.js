@@ -1,1 +1,1 @@
-window.JST = {}; 
+window.JST = window.JST || {}; 

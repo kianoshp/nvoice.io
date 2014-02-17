@@ -83,7 +83,7 @@
         </control>
         <control controlID="1" controlTypeID="com.balsamiq.mockups::Image" x="7" y="4" w="-1" h="-1" measuredW="20" measuredH="20" zOrder="1" locked="false" isInGroup="59">
           <controlProperties>
-            <src>./menu-alt.png</src>
+            <src>../../assets/images/menu-alt.png</src>
           </controlProperties>
         </control>
       </groupChildrenDescriptors>
@@ -201,7 +201,7 @@
         <text>Help</text>
       </controlProperties>
     </control>
-    <control controlID="87" controlTypeID="com.balsamiq.mockups::Label" x="1268" y="99" w="66" h="21" measuredW="50" measuredH="22" zOrder="32" locked="false" isInGroup="-1">
+    <control controlID="87" controlTypeID="com.balsamiq.mockups::Label" x="1268" y="99" w="66" h="21" measuredW="47" measuredH="22" zOrder="32" locked="false" isInGroup="-1">
       <controlProperties>
         <color>15658734</color>
         <size>14</size>
