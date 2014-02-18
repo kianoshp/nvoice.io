@@ -338,9 +338,9 @@
         <src>../../assets/images/share_white.png</src>
       </controlProperties>
     </control>
-    <control controlID="97" controlTypeID="com.balsamiq.mockups::Image" x="2013" y="931" w="32" h="32" measuredW="77" measuredH="79" zOrder="49" locked="false" isInGroup="-1">
+    <control controlID="97" controlTypeID="com.balsamiq.mockups::Image" x="2013" y="931" w="32" h="32" measuredW="128" measuredH="128" zOrder="49" locked="false" isInGroup="-1">
       <controlProperties>
-        <src>./share_white.png</src>
+        <src>../../assets/images/share_white.png</src>
       </controlProperties>
     </control>
   </controls>

@@ -267,9 +267,9 @@
         <src>../../assets/images/logout_menu_black.png</src>
       </controlProperties>
     </control>
-    <control controlID="91" controlTypeID="com.balsamiq.mockups::Image" x="2013" y="931" w="32" h="32" measuredW="77" measuredH="79" zOrder="40" locked="false" isInGroup="-1">
+    <control controlID="91" controlTypeID="com.balsamiq.mockups::Image" x="2013" y="931" w="32" h="32" measuredW="128" measuredH="128" zOrder="40" locked="false" isInGroup="-1">
       <controlProperties>
-        <src>./share_white.png</src>
+        <src>../../assets/images/share_white.png</src>
       </controlProperties>
     </control>
     <control controlID="96" controlTypeID="__group__" x="1478" y="179" w="323" h="250" measuredW="323" measuredH="250" zOrder="41" locked="false" isInGroup="-1">
