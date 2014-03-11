@@ -15,7 +15,6 @@
     "passport": "0.1.x",
     "passport-local": "0.1.x",
     "request": "*",
-    "fs": "*",
     "socket.io": "*",
     "winston": ">=0.7.x",
     "mongoose-auto-increment": ">=1.3.x",
