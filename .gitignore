@@ -1,4 +1,4 @@
-lib-cov
+lib-cov/
 *.seed
 *.log
 *.csv
@@ -8,9 +8,11 @@ lib-cov
 *.gz
 *.DS_Store
 
-pids
-logs
-results
+pids/
+logs/
+results/
+dist/
 
 npm-debug.log
-node_modules
+node_modules/
+
