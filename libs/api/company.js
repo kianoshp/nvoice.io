@@ -8,12 +8,12 @@ module.exports.createCompany = function(req, res) {
 	thisCompany = new Company({
 	    companyName: req.body.company.companyName
 	    , address: {
-	      address1: req.body.company.address.address1
-	      , address2: req.body.company.address.address2
-	      , city: req.body.company.address.city
-	      , state: req.body.company.address.state
-	      , country: req.body.company.address.country
-	      , zip: req.body.company.address.zip    
+	     	address1: req.body.company.address.address1
+	     	, address2: req.body.company.address.address2
+	     	, city: req.body.company.address.city
+	     	, state: req.body.company.address.state
+	     	, country: req.body.company.address.country
+	     	, zip: req.body.company.address.zip    
 	    }
 	    , phone: req.body.company.phone
 	    , email: req.body.company.email

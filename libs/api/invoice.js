@@ -6,13 +6,13 @@ module.exports.createInvoice = function(req, res) {
 		var lastInvoice = invoice[0];
 		req.body.invoice.invoiceNumber = invoice[0] ? invoice[0].invoiceNumber + 1 : 1000;
 		thisInvoice = new Invoice({
-		  title: req.body.invoice.title
-		  , description: req.body.invoice.description
-		  , clientId: req.body.invoice.clientId
-		  , companyId: req.body.invoice.companyId
-		  , poNumber: req.body.invoice.poNumber
-		  , status: req.body.invoice.status
-		  , invoiceNumber: req.body.invoice.invoiceNumber
+			title: req.body.invoice.title
+			, description: req.body.invoice.description
+			, clientId: req.body.invoice.clientId
+			, companyId: req.body.invoice.companyId
+			, poNumber: req.body.invoice.poNumber
+			, status: req.body.invoice.status
+			, invoiceNumber: req.body.invoice.invoiceNumber
 		});
 
 		thisInvoice.save(function(err) {

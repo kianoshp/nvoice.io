@@ -1,28 +1,33 @@
 //setup Dependencies
-var express       = require('express')
-    , port        = (process.env.PORT || 8086)
-    , request     = require('request')
-    , passport    = require('passport')
-    , pjson       = require('./package.json')
-    , data        = require(__dirname + '/assets/js/data/data.js')
-    , db          = require('./libs/model/db')
-    , company     = require('./libs/api/company')
-    , user        = require('./libs/api/users')
-    , client      = require('./libs/api/client')
-    , invoice     = require('./libs/api/invoice')
-    , invoiceItem = require('./libs/api/invoice-item')
-    , fee         = require('./libs/api/fee')
-    , authenticate = require('./libs/api/authentication');
+var express         = require('express')
+    , port          = (process.env.PORT || 8086)
+    , request       = require('request')
+    , passport      = require('passport')
+    , fs            = require('fs')
+    , logger        = require('./libs/utils/logger')
+    , pjson         = require('./package.json')
+    , data          = require(__dirname + '/assets/js/data/data.js')
+    , db            = require('./libs/model/db')
+    , company       = require('./libs/api/company')
+    , user          = require('./libs/api/users')
+    , client        = require('./libs/api/client')
+    , invoice       = require('./libs/api/invoice')
+    , invoiceItem   = require('./libs/api/invoice-item')
+    , fee           = require('./libs/api/fee')
+    , authenticate  = require('./libs/api/authentication');
 
+// var logFile = fs.createWriteStream('./logFile.log', {flags: 'a'});
 //Setup Express
 var server = express();
 server.configure(function(){
     server.set('views', __dirname + '/views');
     server.set('view options', { layout: false });
-    server.use(express.bodyParser());
+    server.use(express.urlencoded());
+    server.use(express.json());
     server.use(express.cookieParser());
     server.use(express.session({ secret: "shhhhhhhhh!"}));
     server.use(express.static(__dirname + '/assets'));
+    // server.use(express.logger({stream: logFile}));
     server.use(passport.initialize());
     server.use(passport.session());
     server.use(server.router);
@@ -128,9 +133,8 @@ server.get('/client/search', function(req, res) {
 
 server.post('/users/create', function(req, res) {
     company.CompanySchema.findOne({_id: '525df3903f587d8e18000001'}, function(err, company) {
-        if(err) console.log(err);
-        console.log('I found the company I was looking for --> ');
-        console.log(company);
+        if(err) logger.log('debug', err);
+        logger.log('info', 'I found the company I was looking for --> %j', company);
         req.body.companyId = company._id;
         user.post(company);
         res.send();
@@ -197,4 +201,4 @@ function NotFound(msg){
 }
 
 
-console.log('Listening on http://localhost:' + port );
+logger.log('info', 'Listening on http://localhost: %s', port );

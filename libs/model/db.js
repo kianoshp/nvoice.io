@@ -6,8 +6,8 @@ var dbURI = 'mongodb://localhost/nvoiceDB';
 mongoose.connect(dbURI);
 
 mongoose.connection.on('error', function(error) {
-  console.log('error has occured --> ');
-  console.log(error);
+	console.log('error has occured --> ');
+	console.log(error);
 });
 
 mongoose.connection.on('connected', function() {
