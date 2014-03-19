@@ -1,7 +1,7 @@
 var mongoose= require('mongoose');
 
-// var dbURI = 'mongodb://localhost/nvoiceDB';
-var dbURI = 'mongodb://appfog:d91fed773bc3ef53d5ab957a7b2b80ea@paulo.mongohq.com:10017/nvoice_me_kianoshp';
+var dbURI = 'mongodb://localhost/nvoiceDB';
+// var dbURI = 'mongodb://appfog:d91fed773bc3ef53d5ab957a7b2b80ea@paulo.mongohq.com:10017/nvoice_me_kianoshp';
 
 mongoose.connect(dbURI);
 
