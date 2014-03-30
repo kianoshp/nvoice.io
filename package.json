@@ -29,7 +29,8 @@
         "grunt-contrib-uglify": "*",
         "grunt-contrib-watch": "*",
         "phantomjs": "1.8.2-0",
-        "fakerjs": ">=0.5.12"
+        "fakerjs": ">=0.5.12",
+        "load-grunt-tasks": "*"
     },
     "engine": "node >= 0.6.6"
 }
