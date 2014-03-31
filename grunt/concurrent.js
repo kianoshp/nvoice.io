@@ -1,4 +1,5 @@
 module.exports = {
-  first: ['concat'],
-  second: ['uglify', 'imagemin']
+  first: ['jshint'],
+  second: ['concat'],
+  third: ['uglify', 'imagemin']
 };
