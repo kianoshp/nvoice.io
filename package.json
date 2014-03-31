@@ -23,7 +23,7 @@
   "devDependencies": {
     "jasmine-node": ">=1.2.2",
     "grunt": "*",
-    "grunt-contrib-jasmine": "*",
+    "grunt-contrib-jasmine": "^0.6.3",
     "grunt-contrib-jshint": "~0.5.4",
     "grunt-contrib-concat": "*",
     "grunt-contrib-uglify": "*",
