@@ -1,0 +1,109 @@
+/**************** padding and margin settings *****************
+
+	Setting padding and margins to be added to different sections
+	This sections contains individual setting and also a mixin
+	to be able to add to different sections
+
+	spacing helpers
+	p,m = padding,margin
+	a,t,r,b,l,v,h = all,top,right,bottom,left,vertical,horizontal
+	s,m,l,n = small(5px),medium(10px),large(20px),none(0px)
+
+**************************************************************/
+.pts, .pas, .pvs {
+  padding-top: 1 !important; }
+
+.ptm, .pam, .pvm {
+  padding-top: 2 !important; }
+
+.ptl, .pal, .pvl {
+  padding-top: 4 !important; }
+
+.ptn, .pan, .pvn {
+  padding-top: 0 !important; }
+
+.prs, .pas, .phs {
+  padding-right: 1 !important; }
+
+.prm, .pam, .phm {
+  padding-right: 2 !important; }
+
+.prl, .pal, .phl {
+  padding-right: 4 !important; }
+
+.prn, .pan, .phn {
+  padding-right: 0 !important; }
+
+.pbs, .pas, .phs {
+  padding-bottom: 1 !important; }
+
+.pbm, .pam, .phm {
+  padding-bottom: 2 !important; }
+
+.pbl, .pal, .phl {
+  padding-bottom: 4 !important; }
+
+.pbn, .pan, .phn {
+  padding-bottom: 0 !important; }
+
+.pls, .pas, .pvs {
+  padding-left: 1 !important; }
+
+.plm, .pam, .pvm {
+  padding-left: 2 !important; }
+
+.pll, .pal, .pvl {
+  padding-left: 4 !important; }
+
+.pln, .pan, .pvn {
+  padding-left: 0 !important; }
+
+.mts, .mas, .mvs {
+  margin-top: 1 !important; }
+
+.mtm, .mam, .mvm {
+  margin-top: 2 !important; }
+
+.mtl, .mal, .mvl {
+  margin-top: 4 !important; }
+
+.mtn, .man, .mvn {
+  margin-top: 0 !important; }
+
+.mrs, .mas, .mhs {
+  margin-right: 1 !important; }
+
+.mrm, .mam, .mhm {
+  margin-right: 2 !important; }
+
+.mrl, .mal, .mhl {
+  margin-right: 4 !important; }
+
+.mrn, .man, .mhn {
+  margin-right: 0 !important; }
+
+.mbs, .mas, .mhs {
+  margin-bottom: 1 !important; }
+
+.mbm, .mam, .mhm {
+  margin-bottom: 2 !important; }
+
+.mbl, .mal, .mhl {
+  margin-bottom: 4 !important; }
+
+.mbn, .man, .mhn {
+  margin-bottom: 0 !important; }
+
+.mls, .mas, .mvs {
+  margin-left: 1 !important; }
+
+.mlm, .mam, .mvm {
+  margin-left: 2 !important; }
+
+.mll, .mal, .mvl {
+  margin-left: 4 !important; }
+
+.mln, .man, .mvn {
+  margin-left: 0 !important; }
+
+/***************** end padding and margin settings *************/
