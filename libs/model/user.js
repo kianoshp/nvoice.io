@@ -1,7 +1,7 @@
-var mongoose          = require('mongoose')
-    , thisCompany     = require('./company')
-    , db              = require('./db')
-    , bcrypt          = require('bcrypt')
+var mongoose            = require('mongoose')
+    , thisCompany       = require('./company')
+    , db                = require('./db')
+    , bcrypt            = require('bcrypt')
     , SALT_WORK_FACTOR  = 10
     , SALT_SEED_LENGTH  = 20;    
 

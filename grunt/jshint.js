@@ -4,6 +4,7 @@ module.exports = {
   options: {
     // more options here if you want to override JSHint defaults
     node: true,
-    strict: false
+    strict: false,
+    laxcomma: true
   }
 };

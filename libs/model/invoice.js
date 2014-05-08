@@ -1,5 +1,5 @@
-var mongoose 		= require('mongoose')
-    , db 			= require('./db');
+var mongoose        = require('mongoose')
+    , db            = require('./db');
 
 var InvoiceSchema = new db.Schema({
     title: String
