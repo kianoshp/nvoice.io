@@ -18,12 +18,11 @@
     "socket.io": "*",
     "winston": ">=0.7.x",
     "mongoose-auto-increment": ">=3.0.x",
-    "bcrypt": ">=0.7.7"
+    "bcrypt": ">=0.7.7",
+    "grunt-develop": "^0.4.0"
   },
   "devDependencies": {
-    "jasmine-node": ">=1.2.2",
     "grunt": "*",
-    "grunt-contrib-jasmine": "^0.6.3",
     "grunt-contrib-jshint": "~0.5.4",
     "grunt-contrib-concat": "*",
     "grunt-contrib-uglify": "*",
@@ -37,7 +36,11 @@
     "grunt-concurrent": "^0.5.0",
     "time-grunt": "^0.3.1",
     "grunt-notify": "^0.2.20",
-    "grunt-contrib-sass": "^0.7.3"
+    "grunt-contrib-sass": "^0.7.3",
+    "mocha": "^1.18.2",
+    "chai": "^1.9.1",
+    "supertest": "^0.12.1",
+    "grunt-mocha-test": "^0.10.2"
   },
-  "engine": "node >= 0.6.6"
+  "engine": "node >= 0.10.26"
 }

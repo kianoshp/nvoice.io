@@ -1,14 +1,14 @@
 module.exports = {
-  options: {
-    cache: false
-  },
+    options: {
+        cache: false
+    },
 
-  dist: {
-    files: [{
-      expand: true,
-      cwd: 'src/',
-      src: ['**/*.{png,jpg,gif}'],
-      dest: 'dist/'
-    }]
-  }
+    dist: {
+        files: [{
+            expand: true,
+            cwd: 'src/',
+            src: ['**/*.{png,jpg,gif}'],
+            dest: 'dist/'
+        }]
+    }
 };

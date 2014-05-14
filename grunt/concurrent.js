@@ -1,5 +1,6 @@
 module.exports = {
-  first: ['jshint','jasmine'],
-  second: ['concat'],
-  third: ['uglify', 'imagemin','sass']
+    first: ['jshint'],
+    second: ['concat'],
+    third: ['uglify', 'imagemin', 'sass'],
+    default: ['jshint', 'mochaTest']
 };

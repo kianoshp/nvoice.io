@@ -1,5 +1,7 @@
 default:
+  - 'concurrent:default'
+
+build:
   - 'concurrent:first'
   - 'concurrent:second'
   - 'concurrent:third'
-  
