@@ -1,5 +1,6 @@
 module.exports = {
-  first: ['jshint','jasmine'],
+  first: ['jshint'],
   second: ['concat'],
   third: ['uglify', 'imagemin','sass']
 };
+//Removed 'jasmine' from first until we get back to tests
