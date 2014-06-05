@@ -138,7 +138,7 @@ server.get('/client/search', function(req, res) {
 
 server.post('/users/create', function(req, res) {
     company.CompanySchema.findOne({
-        _id: '525df3903f587d8e18000001'
+        _id: req.body.company_id
     }, function(err, company) {
         if (err) logger.log('debug', err);
         logger.log('info', 'I found the company I was looking for --> %j', company);

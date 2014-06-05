@@ -5,7 +5,7 @@ var mongoose = require('mongoose'),
 module.exports.createCompany = function(req, res) {
     console.log("I am going to create a new entry in the DB");
 
-    thisCompany = new Company({
+    var thisCompany = new Company({
         companyName: req.body.company.companyName,
         address: {
             address1: req.body.company.address.address1,
@@ -33,7 +33,7 @@ module.exports.createCompany = function(req, res) {
 
     });
 
-    user = new User({
+    var user = new User({
         firstName: req.body.user.firstName,
         middleInitial: req.body.user.middleInitial,
         lastName: req.body.user.lastName,

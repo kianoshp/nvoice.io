@@ -1,6 +1,6 @@
 module.exports = {
     options: {
-        reporter: 'nyan'
+        reporter: 'spec'
     },
     src: ['assets/test/specs/*.js']
 }
