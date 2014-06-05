@@ -6,6 +6,7 @@ var dbURI = 'mongodb://localhost/nvoiceDB';
 mongoose.connect(dbURI);
 
 mongoose.connection.on('error', function(error) {
+<<<<<<< HEAD
     console.log('error has occured --> ');
     console.log(error);
 });
@@ -22,6 +23,24 @@ process.on('SIGINT', function() {
     mongoose.connection.close(function() {
         console.log('Mongoose default connection disconnected through app termination');
         process.exit(0);
+=======
+  console.log('error has occured --> ');
+  console.log(error);
+});
+
+mongoose.connection.on('connected', function() {
+  console.log('Mongoose default connection open to ' + dbURI);
+});
+
+mongoose.connection.on('disconnected', function() {
+  console.log('Mongoose default connection disconnected');
+});
+
+process.on('SIGINT', function() {
+  mongoose.connection.close(function () {
+      console.log('Mongoose default connection disconnected through app termination');
+      process.exit(0);
+>>>>>>> 3a9166cbaf0264bc0435f22fc5dae4551d8231a5
     });
 });
 
