@@ -41,7 +41,9 @@
     "chai": "^1.9.1",
     "supertest": "^0.12.1",
     "grunt-mocha-test": "^0.10.2",
-    "should": "^3.3.1"
+    "should": "^3.3.1",
+    "jasmine-node": "^1.14.3",
+    "superagent": "^0.18.0"
   },
   "engine": "node >= 0.10.26"
 }

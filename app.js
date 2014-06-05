@@ -119,13 +119,23 @@ server.post('/login', function(req, res, next) {
 
 server.post('/company/create', function(req, res) {
     var thisCompany = company.createCompany(req, res);
+
     if (req.body.isClient) {
-        client.addClientToCompany(req.body.parentCompany, thisCompany._id);
+        client.addClientToCompany(req.body.parentCompany, thisCompany.company._id);
     }
     res.writeHead(200, {
         'Content-Type': 'application/json'
     });
-    res.end();
+    res.end(JSON.stringify(thisCompany));
+});
+
+server.del('/company/delete', function(req, res) {
+    if(company.deleteCompany(req, res)) {
+        res.writeHead(200, {
+            'Content-Type': 'application/json'
+        });
+        res.send({status: 'complete', isRemoved: true});        
+    };
 });
 
 server.get('/client/list', function(req, res) {

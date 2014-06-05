@@ -3,7 +3,11 @@ var mongoose = require('mongoose'),
     User = require('../model/user');
 
 module.exports.createCompany = function(req, res) {
-    console.log("I am going to create a new entry in the DB");
+
+    var companyObj = {
+        company: null,
+        user: null
+    };
 
     var thisCompany = new Company({
         companyName: req.body.company.companyName,
@@ -47,7 +51,7 @@ module.exports.createCompany = function(req, res) {
     });
 
     user.save(function(err) {
-        console.log('I am about to save a user');
+        // console.log('I am about to save a user');
         if (err) {
             thisCompany.remove({
                 id: thisCompany._id
@@ -59,14 +63,36 @@ module.exports.createCompany = function(req, res) {
             thisUser.comparePassword(thisUser.password, function(err, isMatch) {
                 if (err) return console.log(err);
 
-                console.log(thisUser.password + ': ' + isMatch);
+                // console.log(thisUser.password + ': ' + isMatch);
             });
-            console.log('I added the new user');
-            console.log(thisUser);
+            // console.log('I added the new user');
+            // console.log(thisUser);
         });
     });
 
-    return thisCompany;
+    companyObj.company = thisCompany;
+    companyObj.user = user;
+
+    return companyObj;
+};
+
+module.exports.deleteCompany = function(req, res) {
+    //remove all associated users
+    User.remove({
+        companyId: req.body.companyId
+    }, function(err) {
+        if (err) return false;
+        //remove all clients
+
+        //remove the company
+        Company.remove({
+            _id: req.body.companyId
+        }, function(err) {
+            if (err) return false;
+        });
+    });
+
+    return true;
 };
 
 module.exports.CompanySchema = Company;
