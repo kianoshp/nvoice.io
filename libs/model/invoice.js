@@ -1,10 +1,5 @@
-<<<<<<< HEAD
 var mongoose = require('mongoose'),
     db = require('./db');
-=======
-var mongoose        = require('mongoose')
-    , db            = require('./db');
->>>>>>> 3a9166cbaf0264bc0435f22fc5dae4551d8231a5
 
 var InvoiceSchema = new db.Schema({
     title: String,
