@@ -130,10 +130,10 @@ server.post('/company/create', function(req, res) {
 });
 
 server.del('/company/delete', function(req, res) {
-    if(company.deleteCompany(req, res)) {
-        res.writeHead(200, {
-            'Content-Type': 'application/json'
-        });
+    var isDeleted = company.deleteCompany(req, res);
+    if(isDeleted) {
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'application/json');
         res.send({status: 'complete', isRemoved: true});        
     };
 });
