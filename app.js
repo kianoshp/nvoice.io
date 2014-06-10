@@ -120,6 +120,10 @@ server.post('/login', function(req, res, next) {
 server.post('/company/create', function(req, res) {
     var thisCompany = company.createCompany(req, res);
 
+    console.log('parentCompany --> ' + req.body.parentCompany);
+    console.log('thiscompany id --> ' + thisCompany.company._id);
+    console.log('req.body --> ');
+    console.log(req.body);
     if (req.body.isClient) {
         client.addClientToCompany(req.body.parentCompany, thisCompany.company._id);
     }
@@ -139,7 +143,11 @@ server.del('/company/delete', function(req, res) {
 });
 
 server.get('/client/list', function(req, res) {
-    client.getClients(req, res);
+    client.getClients(req, res, function(err, clients){
+        if (err) throw new Error(err);
+
+        res.json(clients);
+    });
 });
 
 server.get('/client/search', function(req, res) {
@@ -199,12 +207,6 @@ server.post('/invoice/fee', function(req, res) {
         'Content-Type': 'application/json'
     });
     res.end();
-});
-
-server.get('/jasmineTest', function(req, res) {
-    fs.readFile(__dirname + '/assets/test/SpecRunner.html', 'utf8', function(err, text) {
-        res.send(text);
-    });
 });
 
 //A Route for Creating a 500 Error (Useful to keep around)

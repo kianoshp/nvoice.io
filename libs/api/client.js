@@ -16,23 +16,26 @@ module.exports.addClientToCompany = function(companyId, clientId) {
     });
 };
 
-module.exports.getClients = function(req, res) {
+module.exports.getClients = function(req, res, cb) {
+    var thisId = req.query.companyId || req.body.companyId;
+    console.log('id is --> ');
+    console.log(thisId);
     Company.find({
-        _id: req.query.companyId
+        _id: thisId
     }, 'client', function(err, data) {
-        if (err) throw new Error(err);
+        if (err) return cb(err);
 
         var clientIdArr = data[0].client;
-        console.log('clientIdArr is --> ');
-        console.log(clientIdArr);
+        // console.log('clientIdArr is --> ');
+        // console.log(clientIdArr);
         Company.find({
             _id: {
                 $in: clientIdArr
             }
         }, function(err, companies) {
-            if (err) throw new Error(err);
-
-            res.json(companies);
+            if (err) return cb(err);
+    
+            cb(null, companies);
         });
     });
 };

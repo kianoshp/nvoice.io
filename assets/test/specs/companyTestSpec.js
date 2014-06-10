@@ -27,9 +27,35 @@ describe('Company API test', function() {
             role: "administrator",
             mainContact: true
         }
-    }
-        // currentCompanyId
-        // app = express()
+    },
+        clientObj = {
+        company: {
+            companyName: "AMCE Inc.",
+            phone: 1230000000,
+            email: "wiley.coyote@acme.com",
+            address: {
+                address1: "123 Any Street",
+                address2: "Suite 456",
+                city: "Anytown",
+                state: "ST",
+                country: "United States",
+                zip: "12345"
+            },
+        },
+        user: {
+            firstName: "Wiley",
+            middleInitial: "",
+            lastName: "Coyote",
+            password: "pa$$w0rd",
+            email: "wiley.coyote@acme.com",
+            phone: "1234567890",
+            role: "administrator",
+            mainContact: true
+        },
+        isClient: true
+    },
+        companyObject = {},
+        currentCompanyId
         ;
 
     describe("CRUD process", function() {
@@ -49,7 +75,22 @@ describe('Company API test', function() {
                         chai.expect(companyObject.companyName).to.equal(companyObj.company.companyName);
                         done();
                     });
+            });
 
+            it('should create a client', function(done) {
+                clientObj.parentCompany = companyObject._id;
+                superagent.post('http://localhost:8086/company/create')
+                    .send(clientObj)
+                    .end(function(err, res) {
+                        if (err) return console.log(err);
+
+                        var clientObject = res.body.company;
+                        // currentCompanyId = clientObject._id;
+                        chai.expect(clientObject).to.exist;
+                        chai.expect(clientObject).to.not.be.undefined;
+                        chai.expect(clientObject.companyName).to.equal(clientObj.company.companyName);
+                        done();
+                    });
             });
         });
 

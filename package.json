@@ -19,7 +19,8 @@
     "winston": ">=0.7.x",
     "mongoose-auto-increment": ">=3.0.x",
     "bcrypt": ">=0.7.7",
-    "grunt-develop": "^0.4.0"
+    "grunt-develop": "^0.4.0",
+    "lodash": "^2.4.1"
   },
   "devDependencies": {
     "grunt": "*",

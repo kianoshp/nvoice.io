@@ -1,6 +1,8 @@
 var mongoose = require('mongoose'),
     Company = require('../model/company'),
-    User = require('../model/user');
+    User = require('../model/user'),
+    client = require('./client'),
+    _ = require('lodash');
 
 module.exports.createCompany = function(req, res) {
 
@@ -77,18 +79,35 @@ module.exports.createCompany = function(req, res) {
 };
 
 module.exports.deleteCompany = function(req, res) {
+    var compId = req.body.companyId;
     //remove all associated users
     User.remove({
-        companyId: req.body.companyId
+        companyId: compId
     }, function(err) {
         if (err) return false;
         //remove all clients
+        client.getClients(req, res, function(err, clients) {
+            console.log('clients --> ');
+            console.log(clients);
+            console.log('ids --> ');
+            console.log(_.pluck(clients, '_id'));
+            var ids = _.pluck(clients, '_id');
+            User.remove({
+                companyId: {
+                    $in: ids
+                }
+            }, function(err, data){
+                Company.remove(clients, function(err, clients) {
+                    //remove the company
+                    Company.remove({
+                        _id: compId
+                    }, function(err) {
+                        if (err) return false;
 
-        //remove the company
-        Company.remove({
-            _id: req.body.companyId
-        }, function(err) {
-            if (err) return false;
+                        console.log('removed the company');
+                    });
+                });
+            });
         });
     });
 
