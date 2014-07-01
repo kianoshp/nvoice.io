@@ -8,7 +8,7 @@ var express = require('express'),
     pjson = require('./package.json'),
     data = require(__dirname + '/assets/js/data/data.js'),
     db = require('./libs/model/db'),
-    company = require('./libs/api/company'),
+    companyAPI = require('./libs/api/company').companyAPI,
     user = require('./libs/api/users'),
     client = require('./libs/api/client'),
     invoice = require('./libs/api/invoice'),
@@ -118,29 +118,44 @@ server.post('/login', function(req, res, next) {
 
 
 server.post('/company/create', function(req, res) {
-    var thisCompany = company.createCompany(req, res);
+    var thisCompany = companyAPI.createCompanyObject(req);
+    var thisUser = companyAPI.createUserObject(req, thisCompany);
 
-    console.log('parentCompany --> ' + req.body.parentCompany);
-    console.log('thiscompany id --> ' + thisCompany.company._id);
-    console.log('req.body --> ');
-    console.log(req.body);
+    var newCompany = companyAPI.createCompany(thisCompany, thisUser);
+
     if (req.body.isClient) {
-        client.addClientToCompany(req.body.parentCompany, thisCompany.company._id);
+        // client.addClientToCompany(req.body.parentCompany, newCompany.companyObj.company._id);
     }
     res.writeHead(200, {
         'Content-Type': 'application/json'
     });
-    res.end(JSON.stringify(thisCompany));
+    res.end(JSON.stringify(newCompany));
+});
+
+server.get('/company/read', function(req, res) {
+    var companyId = req.query.companyId || req.body.companyId;
+
+    companyAPI.readCompany(companyId, function(err, company) {
+
+        res.json(company);
+    });
 });
 
 server.del('/company/delete', function(req, res) {
-    var isDeleted = company.deleteCompany(req, res);
+    var isDeleted = companyAPI.deleteCompany(req.body.companyId);
     if(isDeleted) {
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
         res.send({status: 'complete', isRemoved: true});        
     };
 });
+
+
+
+
+
+
+
 
 server.get('/client/list', function(req, res) {
     client.getClients(req, res, function(err, clients){

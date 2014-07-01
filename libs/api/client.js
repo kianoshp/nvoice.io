@@ -16,12 +16,11 @@ module.exports.addClientToCompany = function(companyId, clientId) {
     });
 };
 
-module.exports.getClients = function(req, res, cb) {
-    var thisId = req.query.companyId || req.body.companyId;
+module.exports.getClients = function(companyId, cb) {
     console.log('id is --> ');
-    console.log(thisId);
+    console.log(companyId);
     Company.find({
-        _id: thisId
+        _id: companyId
     }, 'client', function(err, data) {
         if (err) return cb(err);
 
