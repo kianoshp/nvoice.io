@@ -132,7 +132,8 @@ describe('Company API test', function() {
                         companyId: currentCompanyId
                     })
                     .end(function(err, res) {
-                        console.log(res.body);
+                        if(err) return console.log(err);
+
                         var thisCompany = res.body;
                         chai.expect(thisCompany).to.exist;
                         chai.expect(thisCompany).to.not.be.undefined;
@@ -144,7 +145,7 @@ describe('Company API test', function() {
         });
 
         describe('Delete', function() {
-            it('should delete a company and all associated clients and users', function() {
+            it('should delete a company and all associated clients and users', function(done) {
 
                 superagent.del(URL + '/company/delete')
                     .send({
@@ -156,6 +157,7 @@ describe('Company API test', function() {
                         chai.expect(res.body).to.exist;
                         chai.expect(res.body.status).to.equal('complete');
                         chai.expect(res.body.isRemoved).to.be(true);
+                        done();
                     });
             });
         });

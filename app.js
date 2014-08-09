@@ -158,7 +158,17 @@ server.del('/company/delete', function(req, res) {
     };
 });
 
+server.post('/user/create', function(req, res) {
+    var thisUser = userAPI.createUserObject(req, thisCompany);
 
+    userAPI.createUser(thisUser, function(err, user) {
+        if (err) {
+            res.json(err);
+        }
+
+        res.json(user);
+    });
+});
 
 
 
