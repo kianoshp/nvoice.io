@@ -9,7 +9,7 @@ var express = require('express'),
     data = require(__dirname + '/assets/js/data/data.js'),
     db = require('./libs/model/db'),
     companyAPI = require('./libs/api/company').companyAPI,
-    user = require('./libs/api/users'),
+    userAPI = require('./libs/api/users').userAPI,
     client = require('./libs/api/client'),
     invoice = require('./libs/api/invoice'),
     invoiceItem = require('./libs/api/invoice-item'),
@@ -119,7 +119,7 @@ server.post('/login', function(req, res, next) {
 
 server.post('/company/create', function(req, res) {
     var thisCompany = companyAPI.createCompanyObject(req);
-    var thisUser = companyAPI.createUserObject(req, thisCompany);
+    var thisUser = userAPI.createUserObject(req, thisCompany);
 
     var newCompany = companyAPI.createCompany(thisCompany, thisUser);
 
@@ -136,6 +136,14 @@ server.get('/company/read', function(req, res) {
     var companyId = req.query.companyId || req.body.companyId;
 
     companyAPI.readCompany(companyId, function(err, company) {
+
+        res.json(company);
+    });
+});
+
+server.post('/company/update', function(req, res) {
+    console.log(req.body);
+    companyAPI.updateCompany(req.body.companyId, req.body.companyObj, {}, function(err, company) {
 
         res.json(company);
     });
@@ -176,28 +184,28 @@ server.post('/users/create', function(req, res) {
         if (err) logger.log('debug', err);
         logger.log('info', 'I found the company I was looking for --> %j', company);
         req.body.companyId = company._id;
-        user.post(company);
+        // user.post(company);
         res.send();
     });
 });
 
 server.post('/users/edit', function(req, res) {
-    user.editUser(req, res);
+    // user.editUser(req, res);
 });
 
 server.get('/users/search', function(req, res) {
-    user.searchUsers(req.query.companyId, req.query.searchExp).exec(function(err, searchResults) {
-        if (err) return console.log(err);
-        res.json(searchResults);
-    });
+    // user.searchUsers(req.query.companyId, req.query.searchExp).exec(function(err, searchResults) {
+    //     if (err) return console.log(err);
+    //     res.json(searchResults);
+    // });
 });
 
 server.get('/users/company', function(req, res) {
-    user.getUsers(req, res).exec(function(err, users) {
-        if (err) return console.log(err);
+    // user.getUsers(req, res).exec(function(err, users) {
+    //     if (err) return console.log(err);
 
-        res.json(users);
-    });
+    //     res.json(users);
+    // });
 });
 
 server.post('/invoice/create', function(req, res) {

@@ -1,6 +1,7 @@
 var mongoose = require('mongoose'),
     Company = require('../model/company'),
     User = require('../model/user'),
+    userAPI = require('./users').userAPI,
     client = require('./client'),
     _ = require('lodash');
 
@@ -29,23 +30,6 @@ var companyAPI = {
         return companyObject;
     },
 
-    createUserObject: function(req, thisCompany) {
-        var userObject = new User({
-            firstName: req.body.user.firstName,
-            middleInitial: req.body.user.middleInitial,
-            lastName: req.body.user.lastName,
-            password: req.body.user.password,
-            companyId: thisCompany._id,
-            mainContact: true,
-            email: req.body.user.email,
-            phone: req.body.user.phone,
-            role: req.body.user.role,
-            lastLoggedIn: Date.now()
-        });
-
-        return userObject;
-    },
-
     createCompany: function(companyObj, userObj) {
         // create company 
         companyObj.save(function(err) {
@@ -55,22 +39,18 @@ var companyAPI = {
             });
         });
 
-        userObj.save(function(err) {
+        userAPI.createUser(userObj, function(err, user) {
             if (err) {
                 companyObj.remove({
                     id: companyObj._id
                 });
                 return console.log(err);
             }
-            User.findById(userObj, function(err, thisUser) {
-                if (err) return console.log(err);
-                thisUser.comparePassword(thisUser.password, function(err, isMatch) {
-                    if (err) return console.log(err);
-                });
-            });
+
+            companyAPI.companyObj.user = userObj;
         });
+
         companyAPI.companyObj.company = companyObj;
-        companyAPI.companyObj.user = userObj;
 
         return companyAPI;
     },
@@ -83,8 +63,14 @@ var companyAPI = {
         });
     },
 
-    updateCompany: function(companyObj, companyId) {
+    updateCompany: function(companyId, companyObj, options, cb) {
+        Company.findByIdAndUpdate(companyId, companyObj, options, function(err, doc) {
+            if(err) {
+                cb(err);
+            }
 
+            cb(null, doc);
+        });
     },
 
     deleteCompany: function(companyId) {

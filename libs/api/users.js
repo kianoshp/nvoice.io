@@ -2,6 +2,63 @@ var mongoose = require('mongoose'),
     Company = require('../model/company'),
     User = require('../model/user');
 
+var userAPI = {
+    createUserObject: function(req, companyId) {
+        var userObject = new User({
+            firstName: req.body.user.firstName,
+            middleInitial: req.body.user.middleInitial,
+            lastName: req.body.user.lastName,
+            password: req.body.user.password,
+            companyId: companyId,
+            mainContact: true,
+            email: req.body.user.email,
+            phone: req.body.user.phone,
+            role: req.body.user.role,
+            lastLoggedIn: Date.now()
+        });
+
+        return userObject;        
+    },
+
+    createUser: function(userObj, cb) {
+        userObj.save(function(err) {
+            if (err) {
+                console.log(err);
+                return cb(err);
+            }
+            User.findById(userObj, function(err, thisUser) {
+                if (err) {
+                    console.log(err);
+                    return cb(err);
+                } 
+                thisUser.comparePassword(thisUser.password, function(err, isMatch) {
+                    if (err) {
+                        console.log(err)
+                        return cb(err);
+                    }
+
+                    console.log(thisUser.password + ': ' + isMatch);
+                });
+                cb(null, userObj);
+            });
+        });
+    },
+
+    readUser: function() {
+
+    }, 
+
+    updateUser: function() {
+
+    },
+
+    deleteUser: function() {
+
+    }
+}
+
+
+
 module.exports.post = function(company) {
     user = new User({
         firstName: "Magdalene",
@@ -83,3 +140,5 @@ module.exports.getUsers = function(req, res) {
         companyId: req.query.companyId
     });
 };
+
+module.exports.userAPI = userAPI;

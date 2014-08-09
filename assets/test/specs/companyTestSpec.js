@@ -56,7 +56,20 @@ describe('Company API test', function() {
             isClient: true
         },
         companyObject = {},
-        currentCompanyId;
+        currentCompanyId,
+        modifiedCompanyObj = {
+            companyName: "MP2 Technologies",
+            phone: 7810000000,
+            email: "kianoshp@cieloconcpets.com",
+            address: {
+                address1: "70 Paul Gore Street",
+                address2: "Unit 2014",
+                city: "Jamaica Plain",
+                state: "MA",
+                country: "United States",
+                zip: "02130"
+            }
+        };
 
     describe("CRUD process", function() {
 
@@ -111,6 +124,25 @@ describe('Company API test', function() {
 
         });
 
+        describe('Update', function() {
+            it('should be able to update a company', function(done) {
+                superagent.post(URL + '/company/update')
+                    .send({
+                        companyObj: modifiedCompanyObj,
+                        companyId: currentCompanyId
+                    })
+                    .end(function(err, res) {
+                        console.log(res.body);
+                        var thisCompany = res.body;
+                        chai.expect(thisCompany).to.exist;
+                        chai.expect(thisCompany).to.not.be.undefined;
+                        chai.expect(thisCompany.companyName).to.equal(modifiedCompanyObj.companyName);
+                        chai.expect(thisCompany.address.address2).to.equal(modifiedCompanyObj.address.address2);
+                        done();
+                    });
+            });
+        });
+
         describe('Delete', function() {
             it('should delete a company and all associated clients and users', function() {
 
@@ -127,9 +159,5 @@ describe('Company API test', function() {
                     });
             });
         });
-
-        // it('should update a company', function() {
-
-        // });
     });
 });
