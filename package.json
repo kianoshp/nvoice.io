@@ -46,5 +46,8 @@
     "jasmine-node": "^1.14.3",
     "superagent": "^0.18.0"
   },
-  "engine": "node >= 0.10.26"
+  "engine": "node >= 0.10.26",
+  "scripts": {
+    "start": "nodemon app.js"
+  }
 }

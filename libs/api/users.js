@@ -1,5 +1,6 @@
 var mongoose = require('mongoose'),
     Company = require('../model/company'),
+    companyAPI = require("./company").companyAPI,
     User = require('../model/user');
 
 var userAPI = {
@@ -10,11 +11,12 @@ var userAPI = {
             lastName: req.body.user.lastName,
             password: req.body.user.password,
             companyId: companyId,
-            mainContact: true,
+            mainContact: req.body.user.mainContact,
             email: req.body.user.email,
             phone: req.body.user.phone,
             role: req.body.user.role,
-            lastLoggedIn: Date.now()
+            lastModified: Date.now(),
+            lastLoggedIn: null
         });
 
         return userObject;        
@@ -44,16 +46,46 @@ var userAPI = {
         });
     },
 
-    readUser: function() {
+    readUser: function(userId, cb) {
+        User.findById(userId, function(err, thisUser) {
+            if(err) {
+                return cb(err);
+            }
 
+            cb(null, thisUser);
+        });
     }, 
 
-    updateUser: function() {
+    updateUser: function(userId, userObj, options, cb) {
+        User.findByIdAndUpdate(userId, userObj, options, function(err, doc) {
+            if(err) {
+                return cb(err);
+            }
 
+            return cb(null, doc);
+        });
     },
 
-    deleteUser: function() {
+    deleteUser: function(userId, cb) {
+        this.readUser(userId, function(err, thisUser) {
+            if(err) {
+                return false;
+            }
 
+            if(thisUser.mainContact) {
+                companyAPI.deleteCompany(thisUser.companyId);
+            } else {
+                User.remove({
+                    _id: userId
+                }, function(err, doc) {
+                    if(err) {
+                        cb(err);
+                    }
+
+                    cb(null, doc);
+                });
+            }
+        })
     }
 }
 
