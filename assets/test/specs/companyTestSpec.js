@@ -57,6 +57,7 @@ describe('Company API test', function() {
         },
         companyObject = {},
         currentCompanyId,
+        currentClientId,
         modifiedCompanyObj = {
             companyName: "MP2 Technologies",
             phone: 7810000000,
@@ -90,21 +91,26 @@ describe('Company API test', function() {
                     });
             });
 
-            // it('should create a client', function(done) {
-            //     clientObj.parentCompany = companyObject._id;
-            //     superagent.post('http://localhost:8086/company/create')
-            //         .send(clientObj)
-            //         .end(function(err, res) {
-            //             if (err) return console.log(err);
+        });
 
-            //             var clientObject = res.body.company;
-            //             // currentCompanyId = clientObject._id;
-            //             chai.expect(clientObject).to.exist;
-            //             chai.expect(clientObject).to.not.be.undefined;
-            //             chai.expect(clientObject.companyName).to.equal(clientObj.company.companyName);
-            //             done();
-            //         });
-            // });
+        describe("Client Services", function() {
+            it('should create a client', function(done) {
+                clientObj.parentCompany = companyObject._id;
+                superagent.post(URL + '/company/create')
+                    .send(clientObj)
+                    .send({parentCompanyId: currentCompanyId})
+                    .end(function(err, res) {
+                        if (err) return console.log(err);
+
+                        var clientObject = res.body.companyObj;
+                        currentClientId = clientObject._id;
+                        chai.expect(clientObject).to.exist;
+                        chai.expect(clientObject).to.not.be.undefined;
+                        chai.expect(clientObject.company.companyName).to.equal(clientObj.company.companyName);
+                        done();
+                    });
+            });
+
         });
 
         describe('Read', function() {
@@ -156,7 +162,7 @@ describe('Company API test', function() {
 
                         chai.expect(res.body).to.exist;
                         chai.expect(res.body.status).to.equal('complete');
-                        chai.expect(res.body.isRemoved).to.be(true);
+                        chai.expect(res.body.isRemoved).to.be.true;
                         done();
                     });
             });

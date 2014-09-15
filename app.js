@@ -100,8 +100,9 @@ server.post('/login', function(req, res, next) {
 server.post('/company/create', function(req, res) {
     var thisCompany = companyAPI.createCompanyObject(req);
     var thisUser = userAPI.createUserObject(req, thisCompany);
+    var parentCompanyId = req.body.parentCompanyId || null;
 
-    var newCompany = companyAPI.createCompany(thisCompany, thisUser);
+    var newCompany = companyAPI.createCompany(thisCompany, thisUser, parentCompanyId);
 
     if (req.body.isClient) {
         // client.addClientToCompany(req.body.parentCompany, newCompany.companyObj.company._id);
@@ -138,6 +139,23 @@ server.del('/company/delete', function(req, res) {
     };
 });
 
+server.get('/client/list', function(req, res) {
+    company.getCompanyClients(req.query.companyId, function(err, clients){
+        if (err) throw new Error(err);
+
+        res.json(clients);
+    });
+});
+
+server.get('/client/search', function(req, res) {
+    company.searchClients(req.query.companyId, req.query.searchExp, function(err, clients) {
+        if(err) throw new Error(err);
+
+        res.json(clients);
+    });
+});
+
+
 server.post('/user/create', function(req, res) {
     var thisUser = userAPI.createUserObject(req, thisCompany);
 
@@ -154,18 +172,6 @@ server.post('/user/create', function(req, res) {
 
 
 
-
-server.get('/client/list', function(req, res) {
-    client.getClients(req, res, function(err, clients){
-        if (err) throw new Error(err);
-
-        res.json(clients);
-    });
-});
-
-server.get('/client/search', function(req, res) {
-    client.searchClients(req, res);
-});
 
 server.post('/users/create', function(req, res) {
     company.CompanySchema.findOne({

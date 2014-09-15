@@ -24,18 +24,22 @@ var companyAPI = {
             },
             phone: req.body.company.phone,
             email: req.body.company.email,
-            created: Date.now()
+            created: Date.now(),
+            isClient: req.body.company.isClient
         });
 
         return companyObject;
     },
 
-    createCompany: function(companyObj, userObj) {
+    createCompany: function(companyObj, userObj, parentCompanyId) {
         // create company 
         companyObj.save(function(err) {
             if (err) throw new Error('Error has occured in creating a company because of ' + err.message);
             Company.findById(companyObj, function(err, doc) {
                 if (err) throw new Error('Error has occured in creating a company because of ' + err.message);
+                if(companyObj.isClient) {
+                    addClientToCompany(parentCompanyId, doc._id);
+                }
             });
         });
 
@@ -113,7 +117,63 @@ var companyAPI = {
         });
 
         return true;
+    },
 
+    addClientToCompany: function(companyId, clientId) {
+        Company.update({
+            _id: companyId
+        }, {
+            $push: {
+                client: clientId
+            }
+        }, {
+            upsert: true
+        }, function(err, data) {
+            if (err) console.log(err);
+            console.log(data);
+
+            return data;
+        });
+    },
+
+    getCompanyClients: function(companyId, cb) {
+        Company.find({
+            _id: companyId
+        }, 'client', function(err, data) {
+            if (err) return cb(err);
+
+            var clientIdArr = data[0].client;
+            Company.find({
+                _id: {
+                    $in: clientIdArr
+                }
+            }, function(err, companies) {
+                if (err) return cb(err);
+        
+                cb(null, companies);
+            });
+        });
+    },
+
+    searchClients: function(companyId, searchExp, cb) {
+        Company.find({
+            _id: companyId
+        }, 'client', function(err, data) {
+            if (err) throw new Error(err);
+
+            var clientIdArr = data[0].client;
+            var regEx = new RegExp(searchExp, 'i');
+            Company.find({
+                _id: {
+                    $in: clientIdArr
+                },
+                companyName: regEx
+            }, function(err, companies) {
+                if (err) cb(err);
+
+                cb(null, companies);
+            });
+        });
     }
 };
 

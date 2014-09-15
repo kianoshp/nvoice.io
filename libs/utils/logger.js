@@ -5,13 +5,12 @@ var logger = new(winston.Logger)({
         new(winston.transports.File)({
             filename: 'logger.log'
         })
+    ],
+    exceptionHandlers: [
+        new winston.transports.File({
+            filename: 'exceptions.log'
+        })
     ]
-    // ,
-    // exceptionHandlers: [
-    //     new winston.transports.File({
-    //         filename: 'exceptions.log'
-    //     })
-    // ]
 });
 
 if (process.env.NODE_ENV === 'dev' || process.env.NODE_ENV === 'test') {
