@@ -1,5 +1,8 @@
 //setup Dependencies
 var express = require('express'),
+    bodyParser = require('body-parser'),
+    cookieParser = require('cookie-parser'),
+    session = require('express-session'),
     port = (process.env.PORT || 8086),
     request = require('request'),
     passport = require('passport'),
@@ -19,45 +22,22 @@ var express = require('express'),
 // var logFile = fs.createWriteStream('./logFile.log', {flags: 'a'});
 //Setup Express
 var server = express();
-server.configure(function() {
-    server.set('views', __dirname + '/views');
-    server.set('view options', {
-        layout: false
-    });
-    server.use(express.urlencoded());
-    server.use(express.json());
-    server.use(express.cookieParser());
-    server.use(express.session({
-        secret: "shhhhhhhhh!"
-    }));
-    server.use(express.static(__dirname + '/assets'));
-    // server.use(express.logger({stream: logFile}));
-    server.use(passport.initialize());
-    server.use(passport.session());
-    server.use(server.router);
-    server.use(function(err, req, res, next) {
-        if (err instanceof NotFound) {
-            res.render('404.jade', {
-                title: '404 - Not Found',
-                description: '',
-                author: '',
-                analyticssiteid: 'XXXXXXX',
-                status: 404
-            });
-        } else if (err) {
-            console.log(err);
-            console.log("I am going to show 500.jade");
-            res.render('500.jade', {
-                title: 'The Server Encountered an Error',
-                description: '',
-                author: '',
-                analyticssiteid: 'XXXXXXX',
-                error: err,
-                status: 500
-            });
-        }
-    });
+server.set('views', __dirname + '/views');
+server.set('view options', {
+    layout: false
 });
+server.use(bodyParser.urlencoded({ extended: false }));
+server.use(bodyParser.json());
+server.use(cookieParser());
+server.use(session({
+    secret: "shhhhhhhhh!",
+    resave: true,
+    saveUninitialized: true
+}));
+server.use(express.static(__dirname + '/assets'));
+// server.use(express.logger({stream: logFile}));
+server.use(passport.initialize());
+server.use(passport.session());
 
 server.listen(port);
 
@@ -120,8 +100,9 @@ server.post('/login', function(req, res, next) {
 server.post('/company/create', function(req, res) {
     var thisCompany = companyAPI.createCompanyObject(req);
     var thisUser = userAPI.createUserObject(req, thisCompany);
+    var parentCompanyId = req.body.parentCompanyId || null;
 
-    var newCompany = companyAPI.createCompany(thisCompany, thisUser);
+    var newCompany = companyAPI.createCompany(thisCompany, thisUser, parentCompanyId);
 
     if (req.body.isClient) {
         // client.addClientToCompany(req.body.parentCompany, newCompany.companyObj.company._id);
@@ -158,6 +139,23 @@ server.del('/company/delete', function(req, res) {
     };
 });
 
+server.get('/client/list', function(req, res) {
+    company.getCompanyClients(req.query.companyId, function(err, clients){
+        if (err) throw new Error(err);
+
+        res.json(clients);
+    });
+});
+
+server.get('/client/search', function(req, res) {
+    company.searchClients(req.query.companyId, req.query.searchExp, function(err, clients) {
+        if(err) throw new Error(err);
+
+        res.json(clients);
+    });
+});
+
+
 server.post('/user/create', function(req, res) {
     var thisUser = userAPI.createUserObject(req, thisCompany);
 
@@ -174,18 +172,6 @@ server.post('/user/create', function(req, res) {
 
 
 
-
-server.get('/client/list', function(req, res) {
-    client.getClients(req, res, function(err, clients){
-        if (err) throw new Error(err);
-
-        res.json(clients);
-    });
-});
-
-server.get('/client/search', function(req, res) {
-    client.searchClients(req, res);
-});
 
 server.post('/users/create', function(req, res) {
     company.CompanySchema.findOne({
@@ -257,6 +243,29 @@ function NotFound(msg) {
     Error.call(this, msg);
     Error.captureStackTrace(this, arguments.callee);
 }
+
+server.use(function(err, req, res, next) {
+    if (err instanceof NotFound) {
+        res.render('404.jade', {
+            title: '404 - Not Found',
+            description: '',
+            author: '',
+            analyticssiteid: 'XXXXXXX',
+            status: 404
+        });
+    } else if (err) {
+        console.log(err);
+        console.log("I am going to show 500.jade");
+        res.render('500.jade', {
+            title: 'The Server Encountered an Error',
+            description: '',
+            author: '',
+            analyticssiteid: 'XXXXXXX',
+            error: err,
+            status: 500
+        });
+    }
+});
 
 
 logger.log('info', 'Listening on http://localhost: %s', port);
