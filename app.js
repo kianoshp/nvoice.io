@@ -1,5 +1,8 @@
 //setup Dependencies
 var express = require('express'),
+    bodyParser = require('body-parser'),
+    cookieParser = require('cookie-parser'),
+    session = require('express-session'),
     port = (process.env.PORT || 8086),
     request = require('request'),
     passport = require('passport'),
@@ -19,45 +22,22 @@ var express = require('express'),
 // var logFile = fs.createWriteStream('./logFile.log', {flags: 'a'});
 //Setup Express
 var server = express();
-server.configure(function() {
-    server.set('views', __dirname + '/views');
-    server.set('view options', {
-        layout: false
-    });
-    server.use(express.urlencoded());
-    server.use(express.json());
-    server.use(express.cookieParser());
-    server.use(express.session({
-        secret: "shhhhhhhhh!"
-    }));
-    server.use(express.static(__dirname + '/assets'));
-    // server.use(express.logger({stream: logFile}));
-    server.use(passport.initialize());
-    server.use(passport.session());
-    server.use(server.router);
-    server.use(function(err, req, res, next) {
-        if (err instanceof NotFound) {
-            res.render('404.jade', {
-                title: '404 - Not Found',
-                description: '',
-                author: '',
-                analyticssiteid: 'XXXXXXX',
-                status: 404
-            });
-        } else if (err) {
-            console.log(err);
-            console.log("I am going to show 500.jade");
-            res.render('500.jade', {
-                title: 'The Server Encountered an Error',
-                description: '',
-                author: '',
-                analyticssiteid: 'XXXXXXX',
-                error: err,
-                status: 500
-            });
-        }
-    });
+server.set('views', __dirname + '/views');
+server.set('view options', {
+    layout: false
 });
+server.use(bodyParser.urlencoded({ extended: false }));
+server.use(bodyParser.json());
+server.use(cookieParser());
+server.use(session({
+    secret: "shhhhhhhhh!",
+    resave: true,
+    saveUninitialized: true
+}));
+server.use(express.static(__dirname + '/assets'));
+// server.use(express.logger({stream: logFile}));
+server.use(passport.initialize());
+server.use(passport.session());
 
 server.listen(port);
 
@@ -257,6 +237,29 @@ function NotFound(msg) {
     Error.call(this, msg);
     Error.captureStackTrace(this, arguments.callee);
 }
+
+server.use(function(err, req, res, next) {
+    if (err instanceof NotFound) {
+        res.render('404.jade', {
+            title: '404 - Not Found',
+            description: '',
+            author: '',
+            analyticssiteid: 'XXXXXXX',
+            status: 404
+        });
+    } else if (err) {
+        console.log(err);
+        console.log("I am going to show 500.jade");
+        res.render('500.jade', {
+            title: 'The Server Encountered an Error',
+            description: '',
+            author: '',
+            analyticssiteid: 'XXXXXXX',
+            error: err,
+            status: 500
+        });
+    }
+});
 
 
 logger.log('info', 'Listening on http://localhost: %s', port);
