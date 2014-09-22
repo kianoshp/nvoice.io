@@ -130,7 +130,7 @@ server.post('/company/update', function(req, res) {
     });
 });
 
-server.del('/company/delete', function(req, res) {
+server.delete('/company/delete', function(req, res) {
     var isDeleted = companyAPI.deleteCompany(req.body.companyId);
     if(isDeleted) {
         res.statusCode = 200;

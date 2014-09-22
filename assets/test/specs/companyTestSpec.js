@@ -83,7 +83,7 @@ describe('Company API test', function() {
                         if (err) return console.log(err);
 
                         companyObject = res.body.companyObj;
-                        currentCompanyId = companyObject.company._id;
+                        currentCompanyId = exports.globalCurrentCompanyId = companyObject.company._id;
                         chai.expect(companyObject).to.exist;
                         chai.expect(companyObject).to.not.be.undefined;
                         chai.expect(companyObject.company.companyName).to.equal(companyObj.company.companyName);

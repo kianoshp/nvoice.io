@@ -2,7 +2,6 @@ var mongoose = require('mongoose'),
     Company = require('../model/company'),
     User = require('../model/user'),
     userAPI = require('./users').userAPI,
-    client = require('./client'),
     _ = require('lodash');
 
 var companyAPI = {
@@ -32,13 +31,14 @@ var companyAPI = {
     },
 
     createCompany: function(companyObj, userObj, parentCompanyId) {
+        var self = this;
         // create company 
         companyObj.save(function(err) {
             if (err) throw new Error('Error has occured in creating a company because of ' + err.message);
             Company.findById(companyObj, function(err, doc) {
                 if (err) throw new Error('Error has occured in creating a company because of ' + err.message);
-                if(companyObj.isClient) {
-                    addClientToCompany(parentCompanyId, doc._id);
+                if(parentCompanyId) {
+                    self.addClientToCompany(parentCompanyId, doc._id);
                 }
             });
         });
@@ -78,13 +78,17 @@ var companyAPI = {
     },
 
     deleteCompany: function(companyId) {
+        var self = this;
+        console.log("companyId --> ");
+        console.log(companyId);
         User.remove({
             'companyId': companyId
         }, function(err) {
             if (err) return false;
             //remove all clients
-            client.getClients(companyId, function(err, clients) {
-
+            self.getCompanyClients(companyId, function(err, clients) {
+                console.log("here are the clients -->");
+                console.log(clients);
                 if (clients && clients.length > 0) {
                     var ids = _.pluck(clients, '_id');
                     User.remove({
@@ -130,8 +134,6 @@ var companyAPI = {
             upsert: true
         }, function(err, data) {
             if (err) console.log(err);
-            console.log(data);
-
             return data;
         });
     },
