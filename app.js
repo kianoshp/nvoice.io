@@ -157,7 +157,7 @@ server.get('/client/search', function(req, res) {
 
 
 server.post('/user/create', function(req, res) {
-    var thisUser = userAPI.createUserObject(req, thisCompany);
+    var thisUser = userAPI.createUserObject(req, req.body.company_id);
 
     userAPI.createUser(thisUser, function(err, user) {
         if (err) {
@@ -168,25 +168,42 @@ server.post('/user/create', function(req, res) {
     });
 });
 
+server.get('/user/read', function(req, res) {
+    userAPI.readUser(req.query.userId, function(err, user) {
+        if (err) {
+            console.log(err);
+        }
 
-
-
-
-
-server.post('/users/create', function(req, res) {
-    company.CompanySchema.findOne({
-        _id: req.body.company_id
-    }, function(err, company) {
-        if (err) logger.log('debug', err);
-        logger.log('info', 'I found the company I was looking for --> %j', company);
-        req.body.companyId = company._id;
-        // user.post(company);
-        res.send();
+        res.json(user);
     });
 });
 
-server.post('/users/edit', function(req, res) {
-    // user.editUser(req, res);
+server.post('/user/update', function(req, res) {
+    userAPI.updateUser(req.body.userId, req.body.userObj, req.body.options, function(err, user) {
+        if (err) {
+            console.log(err)
+        }
+
+        res.json(user);
+    });
+});
+
+server.delete('/user/delete', function(req, res) {
+    var isDeleted = userAPI.deleteUser(req.body.userId);
+
+    if (isDeleted) {
+        res.statusCode = 200;
+        res.setHeader('Content-Type', 'application/json');
+        res.send({status: 'complete', isRemoved: true, message: 'The user has been successfully removed'});
+    }
+});
+
+server.get('/user/search', function(req, res) {
+    var users = userAPI.searchUsers(req.query.companyId, req,query.searchExp);
+
+    if (users) {
+        res.json(users);
+    }
 });
 
 server.get('/users/search', function(req, res) {

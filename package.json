@@ -33,7 +33,6 @@
     "grunt-contrib-watch": "*",
     "grunt-contrib-imagemin": "*",
     "phantomjs": "1.8.2-0",
-    "fakerjs": ">=0.5.12",
     "load-grunt-tasks": "^0.4.0",
     "load-grunt-config": "^0.8.0-beta.1",
     "grunt-newer": "^0.7.0",
