@@ -35,7 +35,7 @@ var userAPI = {
                 } 
                 thisUser.comparePassword(thisUser.password, function(err, isMatch) {
                     if (err) {
-                        console.log(err)
+                        console.log(err);
                         return cb(err);
                     }
 
@@ -85,7 +85,7 @@ var userAPI = {
                     return true;
                 });
             }
-        })
+        });
     },
 
     searchUsers: function(companyId, searchExp) {

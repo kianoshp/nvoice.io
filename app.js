@@ -98,15 +98,13 @@ server.post('/login', function(req, res, next) {
 
 
 server.post('/company/create', function(req, res) {
+    console.log("creating company");
     var thisCompany = companyAPI.createCompanyObject(req);
     var thisUser = userAPI.createUserObject(req, thisCompany);
     var parentCompanyId = req.body.parentCompanyId || null;
 
     var newCompany = companyAPI.createCompany(thisCompany, thisUser, parentCompanyId);
 
-    if (req.body.isClient) {
-        // client.addClientToCompany(req.body.parentCompany, newCompany.companyObj.company._id);
-    }
     res.writeHead(200, {
         'Content-Type': 'application/json'
     });
@@ -123,7 +121,6 @@ server.get('/company/read', function(req, res) {
 });
 
 server.post('/company/update', function(req, res) {
-    console.log(req.body);
     companyAPI.updateCompany(req.body.companyId, req.body.companyObj, {}, function(err, company) {
 
         res.json(company);
@@ -131,6 +128,7 @@ server.post('/company/update', function(req, res) {
 });
 
 server.delete('/company/delete', function(req, res) {
+    console.log("deleting company");
     var isDeleted = companyAPI.deleteCompany(req.body.companyId);
     if(isDeleted) {
         res.statusCode = 200;
@@ -163,7 +161,6 @@ server.post('/user/create', function(req, res) {
         if (err) {
             res.json(err);
         }
-
         res.json(user);
     });
 });
@@ -174,6 +171,7 @@ server.get('/user/read', function(req, res) {
             console.log(err);
         }
 
+        console.log(user);
         res.json(user);
     });
 });

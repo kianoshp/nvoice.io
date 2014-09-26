@@ -58,27 +58,82 @@ describe('User API test', function() {
         phone: "5080000000",
         role: "invoiceCreator",
         mainContact: false
-    };
+    },
+    companyObject = {},
+    currentCompanyId,
+    currentUserId;
 
     describe("CRUD process", function() {
 
         describe('Create', function() {
             it('should create a primary company and its user', function(done) {
-                done();
+                superagent.post(URL + '/company/create')
+                    .send(companyObj)
+                    .end(function(err, res) {
+                        if (err) return console.log(err);
+
+                        console.log(res.body);
+                        companyObject = res.body.companyObj;
+                        currentCompanyId = companyObject.company._id;
+                        currentUserId = companyObject.user._id;
+                        chai.expect(companyObject).to.exist;
+                        chai.expect(companyObject).to.not.be.undefined;
+                        chai.expect(companyObject.company.companyName).to.equal(companyObj.company.companyName);
+                        done();
+                    });
             });
 
             it('should be able to create an user under a company', function(done) {
-                done();
+                console.log(currentUserId);
+                superagent.post(URL + '/user/create')
+                .send({
+                    user: userObj,
+                    company_id: currentCompanyId
+                })
+                .end(function(err, res) {
+                    if (err) return console.log(err);
+
+                    var userObject = res.body;
+                    chai.expect(userObject).to.exist;
+                    chai.expect(userObject).to.not.be.undefined;
+                    chai.expect(userObject.email).to.equal(userObj.email);
+                    chai.expect(userObject.lastName).to.equal(userObj.lastName);
+                    done();
+                });
             });
 
             it('should be able to create another user under a company', function(done) {
-                done();
+                superagent.post(URL + '/user/create')
+                .send({
+                    user: userObj2,
+                    company_id: currentCompanyId
+                })
+                .end(function(err, res) {
+                    if (err) return console.log(err);
+
+                    var userObject = res.body;
+                    chai.expect(userObject).to.exist;
+                    chai.expect(userObject).to.not.be.undefined;
+                    chai.expect(userObject.email).to.equal(userObj2.email);
+                    chai.expect(userObject.lastName).to.equal(userObj2.lastName);
+                    done();
+                });
             });
         });
 
         describe('Read', function() {
             it('should be able to read an user', function(done) {
-                done();
+                superagent.get(URL + '/user/read')
+                    .query({userId: currentUserId})
+                    .end(function(err, res) {
+                        if(err) return console.log(err);
+
+                        var thisUser = res.body;
+                        chai.expect(thisUser).to.exist;
+                        chai.expect(thisUser).to.not.be.undefined;
+                        // chai.expect(thisUser.lastName).to.equal(companyObj.user.lastName);
+                        done();
+                    });
             });
         });
 
@@ -96,7 +151,7 @@ describe('User API test', function() {
 
         describe('Delete', function() {
             it('should be able to delete an user that is not the main contact', function(done) {
-
+                done();
             });
 
             it('should delete a company and all associated clients and users', function(done) {

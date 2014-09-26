@@ -79,16 +79,12 @@ var companyAPI = {
 
     deleteCompany: function(companyId) {
         var self = this;
-        console.log("companyId --> ");
-        console.log(companyId);
         User.remove({
             'companyId': companyId
         }, function(err) {
             if (err) return false;
             //remove all clients
             self.getCompanyClients(companyId, function(err, clients) {
-                console.log("here are the clients -->");
-                console.log(clients);
                 if (clients && clients.length > 0) {
                     var ids = _.pluck(clients, '_id');
                     User.remove({
